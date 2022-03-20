@@ -203,6 +203,12 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
     }
 
 
+    /**
+     * @req[R.014]. The user should be able to get all `Association Types` linked to a given `Class`.
+     *
+     * @param string $name
+     * @return array
+     */
     public function getAssociationsByOriginClass($name)
     {
         $list = [];
@@ -219,6 +225,12 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
     }
 
 
+    /**
+     * @req[R.014]. The user should be able to get all `Association Types` linked to a given `Class`.
+     *
+     * @param string $name
+     * @return array
+     */
     public function getAssociationsByTargetClass($name)
     {
         $list = [];
@@ -236,6 +248,14 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
 
 
 
+    /**
+     * @req[R.006]. The user should be able to add `Objects` of a given `Class`
+     *
+     * @param string $name
+     * @param string $type
+     * @param array $attributes
+     * @return array
+     */
     public function addObject($name, $type, $attributes)
     {
         $key = "{$type}-{$name}";
@@ -251,6 +271,11 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
         return $obj;
     }
 
+    /**
+     * @req[R.009]. The user should be able to retrieve all `Objects` in a `Namespace`
+     *
+     * @return array
+     */
     public function getAllObjects(): array
     {
         return $this->dataset;
@@ -258,6 +283,16 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
 
 
 
+    /**
+     * @req[R.008]. The user should be able to add Associations among two `Objects`
+     *
+     * @param string $origin
+     * @param string $target
+     * @param string $type
+     * @param array $attributes
+     * @param array $props
+     * @return array
+     */
     public function addAssociation($origin, $target, $type, $attributes=[], $props=[])
     {
         $key =  strtolower("{$origin}-$type-{$target}");
@@ -280,11 +315,22 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
         return $association;
     }
 
+    /**
+     * @req[R.013]. The user should be able to get all defined `Association Types`
+     *
+     * @return array
+     */
     public function getAllAssociations(): array
     {
         return $this->associations;
     }
 
+    /**
+     * @req[R.011]. The user should be able to retrieve all `Objects` associated with a given `Object's` name
+     *
+     * @param string $name
+     * @return array
+     */
     public function getObjectsAssociatedToObjectByName($name): array
     {
         $list = $this->getAssociationsByOrigin($name);
@@ -296,9 +342,8 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
             $objResponse = $this->getObjectByName($assoc['target']);
             $objResponse['_assoc_'] = $assoc;
 
-            if (isset($assoc['props']['associativeObject'])) {
-                $objResponse['associativeObject'] = $this->getObjectByName($assoc['props']['associativeObject']);
-            }
+            $this->checkAndFillAssociativeObjectField($assoc, $objResponse);
+
             $response[] = $objResponse;
         }
 
@@ -306,12 +351,34 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
     }
 
 
-    public function getAssociationsByOrigin($name): array
+    /**
+     * @req[R.005]. The user should be able to define relationships with `Associative` `Classes`
+     *
+     * @param array $assoc
+     * @param array $objResponse
+     * @return void
+     */
+    protected function checkAndFillAssociativeObjectField(&$assoc, &$objResponse)
+    {
+        if (isset($assoc['props']['associativeObject'])) {
+            $objResponse['associativeObject'] = $this->getObjectByName($assoc['props']['associativeObject']);
+        }
+    }
+
+
+
+    protected function getAssociationsByOrigin($name): array
     {
         return $this->originAssociations[$name] ?? [];
     }
 
 
+    /**
+     * @req[R.010]. The user should be able to retrieve an `Object` by its name
+     *
+     * @param [type] $name
+     * @return array
+     */
     public function getObjectByName($name): array
     {
         foreach ($this->dataset as  $obj) {

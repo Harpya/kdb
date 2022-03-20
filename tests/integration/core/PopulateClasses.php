@@ -4,9 +4,15 @@ namespace tests\integration\core;
 
 trait PopulateClasses
 {
-    protected function populateClassesDefinition($namespace='global')
+    /**
+     * @req[R.003]. The user should be able to define Classes
+     *
+     * @param string $namespace
+     * @return array
+     */
+    protected function populateClassesDefinition($namespace='global'): array
     {
-        // @FR: R.002
+        // @req[R.003]. The user should be able to define Classes
         $this->getDataModelManager()->selectNamespace($namespace);
 
         $classesToAdd = [];

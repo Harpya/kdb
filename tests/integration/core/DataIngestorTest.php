@@ -143,6 +143,11 @@ class DataIngestorTest extends DataCommons
         $this->assertCount(1, $lsObjects);
     }
 
+    /**
+     * @req[R.013]. The user should be able to get all defined `Association Types`
+     *
+     * @return void
+     */
     public function testCreateObjectsAndAssociationsWithSuccess()
     {
         $this->populateDefaultDataset();
@@ -204,6 +209,7 @@ class DataIngestorTest extends DataCommons
         $this->getDataIngestor()->addObject('myGitRepository/a000004', 'git/commit', ['url'=>'git://mygit.com/myGitRepository.git/commits/a000004']);
 
         // First way to add an association among a file and the commit
+        // @req[R.005]. The user should be able to define relationships with `Associative` `Classes`
         $this->getDataIngestor()->addObject('myGitRepository/a000004-/home/admin/composer.json', 'file-modifications', ['whoChanged'=>'user2']);
         $this->getDataIngestor()->addAssociation('myGitRepository/a000004', '/home/admin/composer.json', 'has', [], ['associativeObject' => 'myGitRepository/a000004-/home/admin/composer.json']);
         $this->getDataIngestor()->addAssociation('/home/admin/composer.json', 'myGitRepository/a000004', 'has', [], ['associativeObject' => 'myGitRepository/a000004-/home/admin/composer.json']);

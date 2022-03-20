@@ -4,6 +4,11 @@ namespace tests\integration\core;
 
 trait PopulateAssociations
 {
+    /**
+     * @req[R.004]. The user should be able to define Associations types among Classes
+     *
+     * @return void
+     */
     protected function populateAssociations()
     {
         $associationsToAdd = [];

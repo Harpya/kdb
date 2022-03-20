@@ -23,7 +23,14 @@ class DataModelManager
 
 
 
-
+    /**
+     * @req[R.003]. The user should be able to define Classes
+     *
+     * @param string $name
+     * @param array $attributes
+     * @param array $props
+     * @return array
+     */
     public function defineClass($name, $attributes=[], $props=[])
     {
         return $this->getAdapter()->defineClass($name, $attributes, $props);
@@ -52,7 +59,7 @@ class DataModelManager
 
 
     /**
-     * Undocumented function
+     * @req[R.004]. The user should be able to define Associations types among Classes
      *
      * @param string $classesOrigin
      * @param string $classesTarget
@@ -76,11 +83,23 @@ class DataModelManager
     }
 
 
+    /**
+     * @req[R.014]. The user should be able to get all `Association Types` linked to a given `Class`.
+     *
+     * @param string $name
+     * @return array
+     */
     public function getAssociationsByOriginClass($name)
     {
         return $this->getAdapter()->getAssociationsByOriginClass($name);
     }
 
+    /**
+     * @req[R.014]. The user should be able to get all `Association Types` linked to a given `Class`.
+     *
+     * @param string $name
+     * @return array
+     */
     public function getAssociationsByTargetClass($name)
     {
         return $this->getAdapter()->getAssociationsByTargetClass($name);

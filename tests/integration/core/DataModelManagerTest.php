@@ -42,7 +42,11 @@ class DataModelManagerTest extends DataCommons
     public function testDefineMultipleClassesShouldAddMultipleClassEntries()
     {
         $this->getDataModelManager()->reset();
+
+        // @req[R.001]. The user should be able to create Namespaces, as Container for Classes, Association types, Objects and Associations
         $namespace = $this->populateNamespaces();
+
+        // @req[R.002]. The user should be able to select the Namespace to work
         $expectedSelectedNamespace = $namespace[0]['name'];
         $classesDefinitionsAdded = $this->populateClassesDefinition($expectedSelectedNamespace);
         $classes = $this->getDataModelManager()->getAllClasses();
@@ -144,6 +148,11 @@ class DataModelManagerTest extends DataCommons
 
 
 
+    /**
+     * @req[R.014]. The user should be able to get all `Association Types` linked to a given `Class`.
+     *
+     * @return void
+     */
     public function testAddRecursiveDependencyInAClassDefinition()
     {
         $this->getDataModelManager()->reset();
