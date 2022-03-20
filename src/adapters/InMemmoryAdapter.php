@@ -153,11 +153,22 @@ class InMemmoryAdapter extends AdapterBase implements AdapterInterface
         $this->associationTypes = [];
     }
 
+    /**
+     * @req[R.012]. The user should be able to retrieve all defined `Classes`
+     *
+     * @return array
+     */
     public function getAllClasses()
     {
         return $this->classes;
     }
 
+    /**
+     *
+     *
+     * @param string $name
+     * @return array
+     */
     public function removeClassDefinitionByName($name)
     {
         if (isset($this->classes[$name])) {

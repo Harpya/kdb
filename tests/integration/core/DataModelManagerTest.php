@@ -39,6 +39,11 @@ class DataModelManagerTest extends DataCommons
 
 
 
+    /**
+     * @req[R.012]. The user should be able to retrieve all defined `Classes`
+     *
+     * @return void
+     */
     public function testDefineMultipleClassesShouldAddMultipleClassEntries()
     {
         $this->getDataModelManager()->reset();

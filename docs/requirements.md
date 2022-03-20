@@ -48,7 +48,7 @@ a) The system should issue an error if an `Association` is trying to be added, b
 
 ### R.011. The user should be able to retrieve all `Objects` associated with a given `Object's` name
 
-### R.012. The user should be able to get all retrieve all defined `Classes`
+### R.012. The user should be able to retrieve all defined `Classes`
 
 ### R.013. The user should be able to get all defined `Association Types`
 

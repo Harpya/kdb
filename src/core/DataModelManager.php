@@ -47,6 +47,11 @@ class DataModelManager
         $this->getAdapter()->reset();
     }
 
+    /**
+     * @req[R.012]. The user should be able to retrieve all defined `Classes`
+     *
+     * @return array
+     */
     public function getAllClasses()
     {
         return $this->getAdapter()->getAllClasses();
